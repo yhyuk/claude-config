@@ -1,0 +1,17 @@
+{
+  "env": {
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-sonnet-4-5-20250929[1m]"
+  },
+  "model": "sonnet",
+  "statusLine": {
+    "type": "command",
+    "command": "node /Users/imform-mm-2101/.claude/hud/omc-hud.mjs"
+  },
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true,
+    "oh-my-claudecode@omc": true,
+    "claude-hud@claude-hud": true,
+    "everything-claude-code@everything-claude-code": true
+  },
+  "alwaysThinkingEnabled": false
+}
