@@ -12,8 +12,8 @@
 
 ### 2️⃣ 프로젝트 작업 완료 후
 ```
-나: "HMP-JP API 개발 완료했으니 문서화해줘"
-클로드: [자동으로 01_Work/Projects/HMP-JP/에 저장]
+나: "my-project API 개발 완료했으니 문서화해줘"
+클로드: [자동으로 01_Work/Projects/my-project/에 저장]
 ```
 
 ### 3️⃣ 새로운 작업 추가
@@ -65,7 +65,7 @@
 
 모든 파일은 아래 위치에 자동 저장:
 ```
-/Users/imform-mm-2101/Documents/Obsidian Vault/
+$HOME/Documents/Obsidian Vault/
 ├── 00_HOME/daily/2026/03/  (주간 작업)
 ├── 01_Work/Projects/        (프로젝트 문서)
 └── 02_Learning/              (학습 노트)

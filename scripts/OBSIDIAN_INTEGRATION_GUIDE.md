@@ -44,10 +44,10 @@ obsidian-claude
 ### 방법 2: 클로드 코드에서 직접 사용
 ```bash
 # 작업 추가
-python3 /Users/imform-mm-2101/.claude/scripts/weekly_task_manager.py
+python3 $HOME/.claude/scripts/weekly_task_manager.py
 
 # 세션 기록
-python3 /Users/imform-mm-2101/.claude/scripts/claude_session_logger.py
+python3 $HOME/.claude/scripts/claude_session_logger.py
 ```
 
 ### 방법 3: 클로드 커맨드 사용
@@ -84,9 +84,8 @@ Obsidian Vault/
 
 ### 프로젝트별 템플릿 추가
 `weekly_task_manager.py`에서 프로젝트 리스트 수정:
-- HMP-JP
-- 병의원
-- 강남언니
+- project-a
+- project-b
 - 등...
 
 ### 학습 카테고리 확장
@@ -101,8 +100,8 @@ Obsidian Vault/
 
 ### 권한 오류 발생 시
 ```bash
-chmod +x /Users/imform-mm-2101/.claude/scripts/*.sh
-chmod +x /Users/imform-mm-2101/.claude/scripts/*.py
+chmod +x $HOME/.claude/scripts/*.sh
+chmod +x $HOME/.claude/scripts/*.py
 ```
 
 ### 별칭이 작동하지 않을 때

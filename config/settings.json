@@ -5,7 +5,7 @@
   "model": "opus",
   "statusLine": {
     "type": "command",
-    "command": "node /Users/imform-mm-2101/.claude/hud/omc-hud.mjs"
+    "command": "node $HOME/.claude/hud/omc-hud.mjs"
   },
   "enabledPlugins": {
     "claude-mem@thedotmack": true,

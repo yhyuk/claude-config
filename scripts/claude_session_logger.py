@@ -7,7 +7,7 @@ from pathlib import Path
 
 class ClaudeSessionLogger:
     def __init__(self):
-        self.vault_path = Path("/Users/imform-mm-2101/Documents/Obsidian Vault")
+        self.vault_path = Path(os.environ.get("OBSIDIAN_VAULT_PATH", Path.home() / "Documents" / "Obsidian Vault"))
         self.learning_path = self.vault_path / "02_Learning" / "Claude_Sessions"
         self.learning_path.mkdir(parents=True, exist_ok=True)
 

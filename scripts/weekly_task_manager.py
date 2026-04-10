@@ -8,7 +8,7 @@ from typing import List, Dict, Tuple
 
 class WeeklyTaskManager:
     def __init__(self):
-        self.vault_path = Path("/Users/imform-mm-2101/Documents/Obsidian Vault")
+        self.vault_path = Path(os.environ.get("OBSIDIAN_VAULT_PATH", Path.home() / "Documents" / "Obsidian Vault"))
         self.daily_path = self.vault_path / "00_HOME" / "daily"
 
     def get_current_week_file(self) -> Path:
@@ -197,6 +197,6 @@ if __name__ == "__main__":
     manager = WeeklyTaskManager()
 
     # 사용 예시
-    # manager.add_task("API 문서 작성", "HMP-JP", "High")
+    # manager.add_task("API 문서 작성", "my-project", "High")
     # manager.mark_task_done("API 문서")
     # print(manager.generate_weekly_report())

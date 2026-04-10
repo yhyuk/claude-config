@@ -5,8 +5,8 @@
 echo "=== 옵시디언-클로드 코드 통합 설정 ==="
 
 # 1. 실행 권한 부여
-chmod +x /Users/imform-mm-2101/.claude/scripts/*.sh
-chmod +x /Users/imform-mm-2101/.claude/scripts/*.py
+chmod +x "$HOME/.claude/scripts/"*.sh
+chmod +x "$HOME/.claude/scripts/"*.py
 
 echo "✅ 스크립트 실행 권한 설정 완료"
 
@@ -20,9 +20,9 @@ fi
 if ! grep -q "alias obsidian-claude" "$SHELL_CONFIG"; then
     echo "" >> "$SHELL_CONFIG"
     echo "# 옵시디언-클로드 코드 통합" >> "$SHELL_CONFIG"
-    echo "alias obsidian-claude='/Users/imform-mm-2101/.claude/scripts/obsidian_claude_integration.sh'" >> "$SHELL_CONFIG"
-    echo "alias obs-task='python3 /Users/imform-mm-2101/.claude/scripts/weekly_task_manager.py'" >> "$SHELL_CONFIG"
-    echo "alias obs-log='python3 /Users/imform-mm-2101/.claude/scripts/claude_session_logger.py'" >> "$SHELL_CONFIG"
+    echo "alias obsidian-claude='\$HOME/.claude/scripts/obsidian_claude_integration.sh'" >> "$SHELL_CONFIG"
+    echo "alias obs-task='python3 \$HOME/.claude/scripts/weekly_task_manager.py'" >> "$SHELL_CONFIG"
+    echo "alias obs-log='python3 \$HOME/.claude/scripts/claude_session_logger.py'" >> "$SHELL_CONFIG"
     echo "✅ Shell 별칭 설정 완료"
 else
     echo "ℹ️ Shell 별칭이 이미 설정되어 있습니다"
@@ -39,7 +39,7 @@ else
 fi
 
 # 4. 옵시디언 볼트 확인
-VAULT_PATH="/Users/imform-mm-2101/Documents/Obsidian Vault"
+VAULT_PATH="${OBSIDIAN_VAULT_PATH:-$HOME/Documents/Obsidian Vault}"
 if [ -d "$VAULT_PATH" ]; then
     echo "✅ 옵시디언 볼트 확인 완료: $VAULT_PATH"
 else

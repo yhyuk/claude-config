@@ -13,7 +13,7 @@ import re
 
 class ObsidianDocManager:
     def __init__(self):
-        self.vault_path = Path("/Users/imform-mm-2101/Documents/Obsidian Vault")
+        self.vault_path = Path(os.environ.get("OBSIDIAN_VAULT_PATH", Path.home() / "Documents" / "Obsidian Vault"))
         self.learning_path = self.vault_path / "02_Learning"
         self.daily_path = self.vault_path / "00_HOME" / "daily"
         self.work_path = self.vault_path / "01_Work"
@@ -59,7 +59,7 @@ class ObsidianDocManager:
         프로젝트 관련 문서를 저장
 
         Args:
-            project_name: 프로젝트명 (HMP-JP, 병의원 등)
+            project_name: 프로젝트명 (예: my-project)
             task_type: 작업 유형 (API문서, 이슈해결, 설계 등)
             content: 문서 내용
         """

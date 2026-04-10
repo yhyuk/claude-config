@@ -12,7 +12,7 @@ from datetime import datetime
 from pathlib import Path
 
 # 경로 설정
-VAULT_PATH = Path("/Users/imform-mm-2101/Documents/Obsidian Vault")
+VAULT_PATH = Path(os.environ.get("OBSIDIAN_VAULT_PATH", Path.home() / "Documents" / "Obsidian Vault"))
 LEARNING_PATH = VAULT_PATH / "02_Learning" / "Claude_Sessions"
 DAILY_PATH = VAULT_PATH / "00_HOME" / "daily"
 

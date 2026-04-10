@@ -2,8 +2,8 @@
 
 # 옵시디언-클로드 코드 통합 실행 스크립트
 
-OBSIDIAN_VAULT="/Users/imform-mm-2101/Documents/Obsidian Vault"
-SCRIPTS_DIR="/Users/imform-mm-2101/.claude/scripts"
+OBSIDIAN_VAULT="${OBSIDIAN_VAULT_PATH:-$HOME/Documents/Obsidian Vault}"
+SCRIPTS_DIR="$HOME/.claude/scripts"
 
 # 색상 설정
 RED='\033[0;31m'
