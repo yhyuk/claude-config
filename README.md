@@ -22,6 +22,38 @@
 
 ---
 
+## 파이프라인 구조
+
+`install.sh`와 `update.sh`가 저장소와 `~/.claude/` 사이를 어떻게 동기화하는지 보여줍니다.
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant Repo as claude-config/
+    participant Script as install.sh / update.sh
+    participant Claude as ~/.claude/
+    participant Remote as GitHub
+
+    Note over User,Remote: 새 환경 설치
+    User->>Repo: git clone
+    User->>Script: ./install.sh
+    Script->>Claude: ~/.claude/ 디렉토리 확인
+    Script->>Script: 기존 파일 백업
+    Script->>Claude: config/ → ~/.claude/ 심볼릭 링크
+    Script-->>User: 설치 완료
+
+    Note over User,Remote: 설정 변경 동기화
+    User->>Claude: 설정 수정
+    Claude-->>Repo: 심볼릭 링크로 자동 반영
+    User->>Remote: git commit & push
+
+    Note over User,Remote: 다른 환경에서 동기화
+    User->>Repo: git pull
+    Repo-->>Claude: 심볼릭 링크로 자동 반영
+```
+
+---
+
 ## 전제 조건
 
 - [Claude Code CLI](https://docs.claude.com/claude-code) 설치
@@ -62,45 +94,6 @@ git commit -m "feat: initial claude config"
 git remote add origin <your-github-repo-url>
 git branch -M main
 git push -u origin main
-```
-
----
-
-## 디렉토리 구조
-
-```
-claude-config/
-├── .gitignore              # Git 제외 파일 목록
-├── README.md               # 이 파일
-├── install.sh              # 새 환경 설치 스크립트
-├── update.sh               # 설정 업데이트 스크립트
-│
-├── config/                 # 핵심 설정 파일
-│   ├── CLAUDE.md          # 글로벌 개발 가이드
-│   ├── settings.json      # Claude Code 설정
-│   └── .omc-config.json   # Oh My Claude Code 설정
-│
-├── docs/                   # 개발 문서
-│   ├── project-structure.md
-│   ├── tech-stack.md
-│   ├── dev-setup.md
-│   ├── code-style.md
-│   ├── git-workflow.md
-│   ├── testing-strategy.md
-│   └── omc/               # Oh My Claude Code 가이드
-│       ├── overview.md
-│       ├── agent-catalog.md
-│       ├── agents/
-│       └── workflows/
-│
-└── scripts/                # 유틸리티 스크립트 (Obsidian 연동)
-    ├── save_to_obsidian.py           # Obsidian 문서 저장 통합 스크립트
-    ├── weekly_task_manager.py        # 주간 작업 관리
-    ├── claude_session_logger.py      # Claude 세션 기록
-    ├── obsidian_hook.py              # Claude Code hooks 연동
-    ├── obsidian_dev_note.sh          # 개발 학습 노트 생성
-    ├── obsidian_claude_integration.sh # 통합 메뉴 스크립트
-    └── setup_obsidian_integration.sh  # Obsidian 연동 초기 설정
 ```
 
 ---
@@ -153,6 +146,45 @@ git push
 cd ~/workspace/claude-config
 git pull
 # 심볼릭 링크가 자동으로 최신 파일을 반영하므로 추가 작업 불필요
+```
+
+---
+
+## 디렉토리 구조
+
+```
+claude-config/
+├── .gitignore              # Git 제외 파일 목록
+├── README.md               # 이 파일
+├── install.sh              # 새 환경 설치 스크립트
+├── update.sh               # 설정 업데이트 스크립트
+│
+├── config/                 # 핵심 설정 파일
+│   ├── CLAUDE.md          # 글로벌 개발 가이드
+│   ├── settings.json      # Claude Code 설정
+│   └── .omc-config.json   # Oh My Claude Code 설정
+│
+├── docs/                   # 개발 문서
+│   ├── project-structure.md
+│   ├── tech-stack.md
+│   ├── dev-setup.md
+│   ├── code-style.md
+│   ├── git-workflow.md
+│   ├── testing-strategy.md
+│   └── omc/               # Oh My Claude Code 가이드
+│       ├── overview.md
+│       ├── agent-catalog.md
+│       ├── agents/
+│       └── workflows/
+│
+└── scripts/                # 유틸리티 스크립트 (Obsidian 연동)
+    ├── save_to_obsidian.py           # Obsidian 문서 저장 통합 스크립트
+    ├── weekly_task_manager.py        # 주간 작업 관리
+    ├── claude_session_logger.py      # Claude 세션 기록
+    ├── obsidian_hook.py              # Claude Code hooks 연동
+    ├── obsidian_dev_note.sh          # 개발 학습 노트 생성
+    ├── obsidian_claude_integration.sh # 통합 메뉴 스크립트
+    └── setup_obsidian_integration.sh  # Obsidian 연동 초기 설정
 ```
 
 ---
