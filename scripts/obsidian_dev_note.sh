@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 옵시디언 개발 학습 노트 자동 생성 스크립트
-OBSIDIAN_VAULT="${OBSIDIAN_VAULT_PATH:-$HOME/Documents/Obsidian Vault}"
+OBSIDIAN_VAULT="/Users/imform-mm-2101/Documents/Obsidian Vault"
 LEARNING_PATH="$OBSIDIAN_VAULT/02_Learning"
 TODAY=$(date +%Y-%m-%d)
 

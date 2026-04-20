@@ -1,11 +1,11 @@
 {
   "env": {
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5-20251001"
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-sonnet-4-5-20250929[1m]"
   },
-  "model": "opus",
+  "model": "sonnet",
   "statusLine": {
     "type": "command",
-    "command": "node $HOME/.claude/hud/omc-hud.mjs"
+    "command": "node /Users/imform-mm-2101/.claude/hud/omc-hud.mjs"
   },
   "enabledPlugins": {
     "claude-mem@thedotmack": true,
@@ -15,7 +15,14 @@
     "frontend-design@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": false,
-  "deny": [
-    "Bash(rm -rf *)"
-  ]
+  "permissions": {
+    "allow": [
+      "Bash(ls /Users/imform-mm-2101/Documents/Obsidian Vault/*)",
+      "Bash(cat /Users/imform-mm-2101/Documents/Obsidian Vault/*)",
+      "Read(/Users/imform-mm-2101/Documents/Obsidian Vault/*)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)"
+    ]
+  }
 }

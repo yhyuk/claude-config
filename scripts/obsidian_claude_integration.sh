@@ -2,8 +2,8 @@
 
 # 옵시디언-클로드 코드 통합 실행 스크립트
 
-OBSIDIAN_VAULT="${OBSIDIAN_VAULT_PATH:-$HOME/Documents/Obsidian Vault}"
-SCRIPTS_DIR="$HOME/.claude/scripts"
+OBSIDIAN_VAULT="/Users/imform-mm-2101/Documents/Obsidian Vault"
+SCRIPTS_DIR="/Users/imform-mm-2101/.claude/scripts"
 
 # 색상 설정
 RED='\033[0;31m'
@@ -25,23 +25,10 @@ show_menu() {
     echo -n "선택: "
 }
 
-# 함수: 입력값 검증 (빈 값 재입력 요청)
-read_required() {
-    local prompt="$1"
-    local value=""
-    while [[ -z "${value// }" ]]; do
-        echo -n "$prompt"
-        read value
-        if [[ -z "${value// }" ]]; then
-            echo -e "${RED}값을 입력해주세요.${NC}"
-        fi
-    done
-    echo "$value"
-}
-
 # 함수: 작업 추가
 add_task() {
-    task=$(read_required "작업 내용: ")
+    echo -n "작업 내용: "
+    read task
     echo -n "프로젝트 (기본: General): "
     read project
     project=${project:-General}
@@ -49,38 +36,29 @@ add_task() {
     read priority
     priority=${priority:-Normal}
 
-    if OCI_TASK="$task" OCI_PROJECT="$project" OCI_PRIORITY="$priority" \
-       python3 -c "
-import os, sys
+    python3 <<EOF
+import sys
 sys.path.append('$SCRIPTS_DIR')
 from weekly_task_manager import WeeklyTaskManager
 manager = WeeklyTaskManager()
-manager.add_task(os.environ['OCI_TASK'], os.environ['OCI_PROJECT'], os.environ['OCI_PRIORITY'])
-"
-    then
-        echo -e "${GREEN}작업이 추가되었습니다!${NC}"
-    else
-        echo -e "${RED}작업 추가에 실패했습니다. 로그를 확인하세요.${NC}"
-    fi
+manager.add_task("$task", "$project", "$priority")
+EOF
+    echo -e "${GREEN}작업이 추가되었습니다!${NC}"
 }
 
 # 함수: 작업 완료 표시
 complete_task() {
-    pattern=$(read_required "완료할 작업 패턴: ")
+    echo -n "완료할 작업 패턴: "
+    read pattern
 
-    if OCI_PATTERN="$pattern" \
-       python3 -c "
-import os, sys
+    python3 <<EOF
+import sys
 sys.path.append('$SCRIPTS_DIR')
 from weekly_task_manager import WeeklyTaskManager
 manager = WeeklyTaskManager()
-manager.mark_task_done(os.environ['OCI_PATTERN'])
-"
-    then
-        echo -e "${GREEN}작업이 완료 처리되었습니다!${NC}"
-    else
-        echo -e "${RED}작업 완료 처리에 실패했습니다.${NC}"
-    fi
+manager.mark_task_done("$pattern")
+EOF
+    echo -e "${GREEN}작업이 완료 처리되었습니다!${NC}"
 }
 
 # 함수: 주간 보고서 생성
@@ -109,41 +87,25 @@ create_dev_note() {
 
 # 함수: 클로드 세션 기록
 log_claude_session() {
-    topic=$(read_required "세션 주제: ")
-    echo -n "카테고리 (기본: ETC): "
+    echo -n "세션 주제: "
+    read topic
+    echo -n "카테고리: "
     read category
-    category=${category:-ETC}
 
-    echo -n "질문/요청: "
-    read question
-    echo -n "해결 방법: "
-    read solution
-    echo -n "학습 포인트: "
-    read learnings
-    echo -n "추가 메모: "
-    read notes
-
-    if OCI_TOPIC="$topic" OCI_CATEGORY="$category" \
-       OCI_QUESTION="$question" OCI_SOLUTION="$solution" \
-       OCI_LEARNINGS="$learnings" OCI_NOTES="$notes" \
-       python3 -c "
-import os, sys
+    python3 <<EOF
+import sys
 sys.path.append('$SCRIPTS_DIR')
 from claude_session_logger import ClaudeSessionLogger
 logger = ClaudeSessionLogger()
 session_content = {
-    'question': os.environ.get('OCI_QUESTION', ''),
-    'solution': os.environ.get('OCI_SOLUTION', ''),
-    'learnings': os.environ.get('OCI_LEARNINGS', ''),
-    'notes': os.environ.get('OCI_NOTES', '')
+    'question': input('질문/요청: '),
+    'solution': input('해결 방법: '),
+    'learnings': input('학습 포인트: '),
+    'notes': input('추가 메모: ')
 }
-logger.log_session(os.environ['OCI_TOPIC'], session_content, os.environ.get('OCI_CATEGORY', 'ETC'))
-"
-    then
-        echo -e "${GREEN}세션이 기록되었습니다!${NC}"
-    else
-        echo -e "${RED}세션 기록에 실패했습니다.${NC}"
-    fi
+logger.log_session("$topic", session_content, "$category")
+EOF
+    echo -e "${GREEN}세션이 기록되었습니다!${NC}"
 }
 
 # 함수: Git 동기화
@@ -175,9 +137,9 @@ week_file = manager.get_current_week_file()
 if week_file.exists():
     content = week_file.read_text(encoding='utf-8')
     tasks = manager.parse_tasks(content)
-    print(f"[완료] {len(tasks['done'])}개")
-    print(f"[진행중] {len(tasks['in_progress'])}개")
-    print(f"[예정] {len(tasks['todo'])}개")
+    print(f"✅ 완료: {len(tasks['done'])}개")
+    print(f"🔄 진행중: {len(tasks['in_progress'])}개")
+    print(f"📋 예정: {len(tasks['todo'])}개")
 EOF
 }
 

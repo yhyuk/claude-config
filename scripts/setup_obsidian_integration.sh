@@ -5,10 +5,10 @@
 echo "=== 옵시디언-클로드 코드 통합 설정 ==="
 
 # 1. 실행 권한 부여
-chmod +x "$HOME/.claude/scripts/"*.sh
-chmod +x "$HOME/.claude/scripts/"*.py
+chmod +x /Users/imform-mm-2101/.claude/scripts/*.sh
+chmod +x /Users/imform-mm-2101/.claude/scripts/*.py
 
-echo "[완료] 스크립트 실행 권한 설정 완료"
+echo "✅ 스크립트 실행 권한 설정 완료"
 
 # 2. 별칭 설정 (~/.zshrc 또는 ~/.bash_profile)
 SHELL_CONFIG="$HOME/.zshrc"
@@ -20,12 +20,12 @@ fi
 if ! grep -q "alias obsidian-claude" "$SHELL_CONFIG"; then
     echo "" >> "$SHELL_CONFIG"
     echo "# 옵시디언-클로드 코드 통합" >> "$SHELL_CONFIG"
-    echo "alias obsidian-claude='\$HOME/.claude/scripts/obsidian_claude_integration.sh'" >> "$SHELL_CONFIG"
-    echo "alias obs-task='python3 \$HOME/.claude/scripts/weekly_task_manager.py'" >> "$SHELL_CONFIG"
-    echo "alias obs-log='python3 \$HOME/.claude/scripts/claude_session_logger.py'" >> "$SHELL_CONFIG"
-    echo "[완료] Shell 별칭 설정 완료"
+    echo "alias obsidian-claude='/Users/imform-mm-2101/.claude/scripts/obsidian_claude_integration.sh'" >> "$SHELL_CONFIG"
+    echo "alias obs-task='python3 /Users/imform-mm-2101/.claude/scripts/weekly_task_manager.py'" >> "$SHELL_CONFIG"
+    echo "alias obs-log='python3 /Users/imform-mm-2101/.claude/scripts/claude_session_logger.py'" >> "$SHELL_CONFIG"
+    echo "✅ Shell 별칭 설정 완료"
 else
-    echo "[정보] Shell 별칭이 이미 설정되어 있습니다"
+    echo "ℹ️ Shell 별칭이 이미 설정되어 있습니다"
 fi
 
 # 3. Python 패키지 확인
@@ -33,23 +33,23 @@ echo ""
 echo "Python 패키지 확인 중..."
 python3 -c "from pathlib import Path; from datetime import datetime" 2>/dev/null
 if [ $? -eq 0 ]; then
-    echo "[완료] 필요한 Python 패키지가 모두 설치되어 있습니다"
+    echo "✅ 필요한 Python 패키지가 모두 설치되어 있습니다"
 else
-    echo "[금지] Python 패키지 설치가 필요합니다"
+    echo "❌ Python 패키지 설치가 필요합니다"
 fi
 
 # 4. 옵시디언 볼트 확인
-VAULT_PATH="${OBSIDIAN_VAULT_PATH:-$HOME/Documents/Obsidian Vault}"
+VAULT_PATH="/Users/imform-mm-2101/Documents/Obsidian Vault"
 if [ -d "$VAULT_PATH" ]; then
-    echo "[완료] 옵시디언 볼트 확인 완료: $VAULT_PATH"
+    echo "✅ 옵시디언 볼트 확인 완료: $VAULT_PATH"
 else
-    echo "[금지] 옵시디언 볼트를 찾을 수 없습니다: $VAULT_PATH"
+    echo "❌ 옵시디언 볼트를 찾을 수 없습니다: $VAULT_PATH"
 fi
 
 # 5. Claude Sessions 폴더 생성
 SESSIONS_PATH="$VAULT_PATH/02_Learning/Claude_Sessions"
 mkdir -p "$SESSIONS_PATH"
-echo "[완료] Claude Sessions 폴더 생성/확인 완료"
+echo "✅ Claude Sessions 폴더 생성/확인 완료"
 
 # 6. 사용법 안내
 echo ""

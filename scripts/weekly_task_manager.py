@@ -8,17 +8,20 @@ from typing import List, Dict, Tuple
 
 class WeeklyTaskManager:
     def __init__(self):
-        self.vault_path = Path(os.environ.get("OBSIDIAN_VAULT_PATH", Path.home() / "Documents" / "Obsidian Vault"))
+        self.vault_path = Path("/Users/imform-mm-2101/Documents/Obsidian Vault")
         self.daily_path = self.vault_path / "00_HOME" / "daily"
 
     def get_current_week_file(self) -> Path:
-        """현재 주차 파일 경로 반환 (ISO 8601 기준)"""
+        """현재 주차 파일 경로 반환"""
         today = datetime.now()
-        iso = today.isocalendar()
-        year = iso[0]
-        week_num = iso[1]
+        year = today.strftime('%Y')
+        month = today.strftime('%m')
 
-        week_file = self.daily_path / str(year) / f"W{week_num:02d}" / f"{year}-W{week_num:02d}주차.md"
+        # 주차 계산 (월의 첫날부터 계산)
+        first_day = today.replace(day=1)
+        week_num = ((today - first_day).days // 7) + 1
+
+        week_file = self.daily_path / year / month / f"{week_num}주차.md"
         week_file.parent.mkdir(parents=True, exist_ok=True)
 
         return week_file
@@ -173,27 +176,20 @@ class WeeklyTaskManager:
         content = week_file.read_text(encoding='utf-8')
         tasks = self.parse_tasks(content)
 
-        total = len(tasks['done']) + len(tasks['todo']) + len(tasks['in_progress'])
-        completion_rate = len(tasks['done']) / max(total, 1) * 100
-
-        done_str = '\n'.join(tasks['done'])
-        in_progress_str = '\n'.join(tasks['in_progress'])
-        todo_str = '\n'.join(tasks['todo'])
-
         report = f"""# 주간 업무 보고서
 ## 기간: {week_file.stem}
 
 ### 완료된 작업 ({len(tasks['done'])}개)
-{done_str}
+{''.join(tasks['done'])}
 
 ### 진행 중인 작업 ({len(tasks['in_progress'])}개)
-{in_progress_str}
+{''.join(tasks['in_progress'])}
 
 ### 예정된 작업 ({len(tasks['todo'])}개)
-{todo_str}
+{''.join(tasks['todo'])}
 
 ### 완료율
-{completion_rate:.1f}% 완료
+{len(tasks['done']) / (len(tasks['done']) + len(tasks['todo']) + len(tasks['in_progress'])) * 100:.1f}% 완료
 """
         return report
 
@@ -201,6 +197,6 @@ if __name__ == "__main__":
     manager = WeeklyTaskManager()
 
     # 사용 예시
-    # manager.add_task("API 문서 작성", "my-project", "High")
+    # manager.add_task("API 문서 작성", "HMP-JP", "High")
     # manager.mark_task_done("API 문서")
     # print(manager.generate_weekly_report())

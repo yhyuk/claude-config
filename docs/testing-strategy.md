@@ -599,11 +599,11 @@ Task(
 ### 1. 테스트 이름은 명확하게
 
 ```typescript
-// [금지] 나쁜 예
+// ❌ 나쁜 예
 test('user test', () => { });
 test('should work', () => { });
 
-// [권장] 좋은 예
+// ✅ 좋은 예
 test('should create user with valid email', () => { });
 test('should throw error when email is duplicate', () => { });
 test('should hash password before saving', () => { });
@@ -612,7 +612,7 @@ test('should hash password before saving', () => { });
 ### 2. 하나의 테스트, 하나의 검증
 
 ```typescript
-// [금지] 나쁜 예 - 여러 개념 테스트
+// ❌ 나쁜 예 - 여러 개념 테스트
 test('user operations', () => {
   const user = createUser(data);
   expect(user.name).toBe('John');
@@ -624,7 +624,7 @@ test('user operations', () => {
   expect(getUser(user.id)).toBeNull();
 });
 
-// [권장] 좋은 예 - 각각 분리
+// ✅ 좋은 예 - 각각 분리
 test('should create user with correct name', () => {
   const user = createUser({ name: 'John' });
   expect(user.name).toBe('John');
@@ -646,13 +646,13 @@ test('should delete user', () => {
 ### 3. 테스트 데이터는 명확하게
 
 ```typescript
-// [금지] 나쁜 예 - 매직 넘버/문자열
+// ❌ 나쁜 예 - 매직 넘버/문자열
 test('should validate age', () => {
   expect(isAdult(18)).toBe(true);
   expect(isAdult(17)).toBe(false);
 });
 
-// [권장] 좋은 예 - 의미있는 상수
+// ✅ 좋은 예 - 의미있는 상수
 test('should validate age', () => {
   const ADULT_AGE = 18;
   const MINOR_AGE = 17;
@@ -665,7 +665,7 @@ test('should validate age', () => {
 ### 4. 테스트는 독립적으로
 
 ```typescript
-// [금지] 나쁜 예 - 테스트 간 의존성
+// ❌ 나쁜 예 - 테스트 간 의존성
 let user;
 
 test('create user', () => {
@@ -676,7 +676,7 @@ test('update user', () => {
   updateUser(user, { name: 'Jane' });  // 이전 테스트에 의존
 });
 
-// [권장] 좋은 예 - 각 테스트 독립적
+// ✅ 좋은 예 - 각 테스트 독립적
 test('create user', () => {
   const user = createUser({ name: 'John' });
   expect(user.name).toBe('John');

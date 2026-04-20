@@ -7,15 +7,9 @@ from pathlib import Path
 
 class ClaudeSessionLogger:
     def __init__(self):
-        self.vault_path = Path(os.environ.get("OBSIDIAN_VAULT_PATH", Path.home() / "Documents" / "Obsidian Vault"))
-        if not self.vault_path.exists():
-            print(f"경고: Obsidian 볼트 경로가 존재하지 않습니다 ({self.vault_path})")
-            print("OBSIDIAN_VAULT_PATH 환경변수를 설정하거나 볼트 경로를 확인하세요.")
+        self.vault_path = Path("/Users/imform-mm-2101/Documents/Obsidian Vault")
         self.learning_path = self.vault_path / "02_Learning" / "Claude_Sessions"
-        try:
-            self.learning_path.mkdir(parents=True, exist_ok=True)
-        except OSError as e:
-            print(f"디렉토리 생성 실패 ({self.learning_path}): {e}")
+        self.learning_path.mkdir(parents=True, exist_ok=True)
 
     def log_session(self, topic, content, category="ETC"):
         """클로드 코드 세션 내용을 옵시디언에 자동 저장"""
@@ -51,12 +45,8 @@ Tags: #claude-code #{category.lower()} #{topic.replace(' ', '-').lower()}
 [[_MOC_Claude_Sessions]]
 """
 
-        try:
-            filepath.write_text(markdown_content, encoding='utf-8')
-            print(f"세션 기록 저장: {filepath}")
-        except OSError as e:
-            print(f"세션 기록 저장 실패 ({filepath}): {e}")
-            raise
+        filepath.write_text(markdown_content, encoding='utf-8')
+        print(f"세션 기록 저장: {filepath}")
         return filepath
 
     def create_moc(self):
