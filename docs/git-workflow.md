@@ -123,13 +123,13 @@ main (trunk)
 - 이슈 번호 포함 가능
 
 ```bash
-# ✅ 좋은 예
+# [권장] 좋은 예
 feature/user-profile-update
 bugfix/null-pointer-in-auth
 hotfix/payment-gateway-timeout
 release/v2.1.0
 
-# ❌ 나쁜 예
+# [금지] 나쁜 예
 feature/User_Profile  # 대문자, 언더스코어
 mywork  # 의미 불명확
 feature/fix  # type과 description 불일치
@@ -329,12 +329,12 @@ chore(deps): update dependencies
 ### Subject 작성 규칙
 
 ```bash
-# ✅ 좋은 예
+# [권장] 좋은 예
 feat: add user authentication
 fix: resolve payment processing error
 docs: update installation guide
 
-# ❌ 나쁜 예
+# [금지] 나쁜 예
 feat: Added user authentication  # 과거형
 fix: fixed bug  # 불명확
 update code  # type 없음
@@ -694,10 +694,10 @@ git commit
 
 ### 4. 의미있는 커밋 메시지
 ```bash
-# ✅ 좋은 예
+# [권장] 좋은 예
 git commit -m "feat: add user authentication with JWT"
 
-# ❌ 나쁜 예
+# [금지] 나쁜 예
 git commit -m "update"
 git commit -m "fix bug"
 ```

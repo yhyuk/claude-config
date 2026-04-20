@@ -12,16 +12,13 @@ class WeeklyTaskManager:
         self.daily_path = self.vault_path / "00_HOME" / "daily"
 
     def get_current_week_file(self) -> Path:
-        """현재 주차 파일 경로 반환"""
+        """현재 주차 파일 경로 반환 (ISO 8601 기준)"""
         today = datetime.now()
-        year = today.strftime('%Y')
-        month = today.strftime('%m')
+        iso = today.isocalendar()
+        year = iso[0]
+        week_num = iso[1]
 
-        # 주차 계산 (월의 첫날부터 계산)
-        first_day = today.replace(day=1)
-        week_num = ((today - first_day).days // 7) + 1
-
-        week_file = self.daily_path / year / month / f"{week_num}주차.md"
+        week_file = self.daily_path / str(year) / f"W{week_num:02d}" / f"{year}-W{week_num:02d}주차.md"
         week_file.parent.mkdir(parents=True, exist_ok=True)
 
         return week_file
@@ -176,20 +173,27 @@ class WeeklyTaskManager:
         content = week_file.read_text(encoding='utf-8')
         tasks = self.parse_tasks(content)
 
+        total = len(tasks['done']) + len(tasks['todo']) + len(tasks['in_progress'])
+        completion_rate = len(tasks['done']) / max(total, 1) * 100
+
+        done_str = '\n'.join(tasks['done'])
+        in_progress_str = '\n'.join(tasks['in_progress'])
+        todo_str = '\n'.join(tasks['todo'])
+
         report = f"""# 주간 업무 보고서
 ## 기간: {week_file.stem}
 
 ### 완료된 작업 ({len(tasks['done'])}개)
-{''.join(tasks['done'])}
+{done_str}
 
 ### 진행 중인 작업 ({len(tasks['in_progress'])}개)
-{''.join(tasks['in_progress'])}
+{in_progress_str}
 
 ### 예정된 작업 ({len(tasks['todo'])}개)
-{''.join(tasks['todo'])}
+{todo_str}
 
 ### 완료율
-{len(tasks['done']) / (len(tasks['done']) + len(tasks['todo']) + len(tasks['in_progress'])) * 100:.1f}% 완료
+{completion_rate:.1f}% 완료
 """
         return report
 

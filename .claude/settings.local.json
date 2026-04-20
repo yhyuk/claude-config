@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 *)",
+      "Bash(bash -n /Users/imform-mm-2101/workspace/PERSONAL/claude-config/scripts/obsidian_claude_integration.sh)",
+      "Bash(bash -n scripts/obsidian_claude_integration.sh)",
+      "Bash(grep -n '\"$task\"\\\\|\"$pattern\"\\\\|\"$topic\"\\\\|\"$question\"' scripts/obsidian_claude_integration.sh)",
+      "mcp__plugin_oh-my-claudecode_t__state_list_active",
+      "mcp__plugin_oh-my-claudecode_t__state_clear"
+    ]
+  }
+}

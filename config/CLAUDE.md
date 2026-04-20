@@ -10,7 +10,7 @@
 - 이모지 사용 지양
 - 다양한 플러그인을 사용하더라도 무조건 한국어로 응답해줄 것
 
-## 📚 프로젝트 핵심 문서
+## 프로젝트 핵심 문서
 
 ### 필수 참고 문서
 프로젝트 시작 전 반드시 읽어야 할 문서들입니다.
@@ -47,7 +47,7 @@
 
 ---
 
-## 🚀 ECC (Everything Claude Code) 활용
+## ECC (Everything Claude Code) 활용
 
 ### ECC란?
 프로젝트 개발에 필요한 검증된 워크플로우, 에이전트, 도구를 제공하는 플러그인입니다.
@@ -116,7 +116,7 @@ Task(subagent_type: "oh-my-claudecode:debugger", ...)
 
 ---
 
-## 📖 빠른 참조
+## 빠른 참조
 
 ### 새로운 기능 개발 시
 
@@ -230,7 +230,7 @@ npm run build  # 또는 ./gradlew build
 
 ---
 
-## 🎯 상황별 에이전트 선택
+## 상황별 에이전트 선택
 
 ### 탐색/조사
 ```bash
@@ -269,7 +269,7 @@ Task(subagent_type: "oh-my-claudecode:deep-executor",
 
 ---
 
-## 🔐 보안 가이드라인
+## 보안 가이드라인
 
 ### 인증/인가 구현 시
 ```bash
@@ -284,13 +284,13 @@ Task(subagent_type: "oh-my-claudecode:deep-executor",
 ```
 
 ### 민감 정보 처리
-- ❌ 절대 커밋 금지: `.env`, `credentials.json`, API keys
-- ✅ 환경 변수 사용: `.env.example` 제공
-- ✅ Secrets 관리: AWS Secrets Manager, Vault 등
+- [금지] 절대 커밋 금지: `.env`, `credentials.json`, API keys
+- [권장] 환경 변수 사용: `.env.example` 제공
+- [권장] Secrets 관리: AWS Secrets Manager, Vault 등
 
 ---
 
-## 📊 테스트 정책
+## 테스트 정책
 
 ### 커버리지 목표
 - **전체**: 80% 이상
@@ -319,7 +319,7 @@ npm run test:e2e
 
 ---
 
-## 🌳 Git 워크플로우 요약
+## Git 워크플로우 요약
 
 ### 브랜치 전략
 ```bash
@@ -364,7 +364,7 @@ gh pr create --title "feat: User authentication" \
 
 ---
 
-## 🛠️ 문제 해결
+## 문제 해결
 
 ### 일반적인 문제
 
@@ -402,7 +402,7 @@ npm install
 
 ---
 
-## 📋 체크리스트
+## 체크리스트
 
 ### 커밋 전
 - [ ] 코드 스타일 준수 (`npm run lint`)
@@ -426,7 +426,7 @@ npm install
 
 ---
 
-## 🔗 추가 리소스
+## 추가 리소스
 
 ### 프로젝트 문서
 - [트러블슈팅 가이드](./docs/troubleshooting.md)
@@ -440,7 +440,7 @@ npm install
 
 ---
 
-## 💡 팁
+## 팁
 
 ### 효율적인 개발
 1. **문서 먼저 확인** - 프로젝트 구조, 기술 스택 숙지
@@ -457,7 +457,7 @@ npm install
 
 ---
 
-## 📞 도움말
+## 도움말
 
 ### OMC/ECC 명령어
 ```bash
@@ -489,4 +489,4 @@ npm install
 
 ---
 
-**마지막 업데이트**: 2025년 3월 18일
+**마지막 업데이트**: 2026년 4월 20일

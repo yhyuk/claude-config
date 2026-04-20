@@ -18,10 +18,10 @@
 코드는 작성하는 시간보다 읽는 시간이 더 많습니다.
 
 ```typescript
-// ❌ 나쁜 예 - 이해하기 어려움
+// [금지] 나쁜 예 - 이해하기 어려움
 const x = u.filter(x => x.a > 18).map(x => x.n);
 
-// ✅ 좋은 예 - 명확함
+// [권장] 좋은 예 - 명확함
 const adultUserNames = users
   .filter(user => user.age > 18)
   .map(user => user.name);
@@ -31,20 +31,20 @@ const adultUserNames = users
 프로젝트 전체에서 동일한 스타일을 유지합니다.
 
 ```typescript
-// 한 파일에서는 화살표 함수, 다른 파일에서는 function 선언 ❌
-// 프로젝트 전체에서 하나의 스타일로 통일 ✅
+// 한 파일에서는 화살표 함수, 다른 파일에서는 function 선언 [금지]
+// 프로젝트 전체에서 하나의 스타일로 통일 [권장]
 ```
 
 ### 3. 단순함
 복잡한 로직보다 단순하고 명확한 코드를 선호합니다.
 
 ```typescript
-// ❌ 나쁜 예 - 과도하게 복잡
+// [금지] 나쁜 예 - 과도하게 복잡
 const result = data.reduce((acc, item) =>
   item.type === 'A' ? [...acc, { ...item, processed: true }] : acc, []
 );
 
-// ✅ 좋은 예 - 명확함
+// [권장] 좋은 예 - 명확함
 const typeAItems = data.filter(item => item.type === 'A');
 const processedItems = typeAItems.map(item => ({
   ...item,
@@ -56,7 +56,7 @@ const processedItems = typeAItems.map(item => ({
 중복 코드를 제거하고 재사용 가능한 함수/컴포넌트로 분리합니다.
 
 ```typescript
-// ❌ 나쁜 예 - 중복
+// [금지] 나쁜 예 - 중복
 function getUserEmail() {
   return user.email?.toLowerCase().trim();
 }
@@ -64,7 +64,7 @@ function getAdminEmail() {
   return admin.email?.toLowerCase().trim();
 }
 
-// ✅ 좋은 예 - 재사용
+// [권장] 좋은 예 - 재사용
 function normalizeEmail(email?: string) {
   return email?.toLowerCase().trim();
 }
@@ -109,11 +109,11 @@ class UserService {
 
 #### 명시적 타입 선언
 ```typescript
-// ❌ 나쁜 예
+// [금지] 나쁜 예
 const users = [];
 function getUser(id) { }
 
-// ✅ 좋은 예
+// [권장] 좋은 예
 const users: User[] = [];
 function getUser(id: string): User | null { }
 ```
@@ -141,10 +141,10 @@ type ApiResponse<T> = {
 
 #### any 사용 지양
 ```typescript
-// ❌ 나쁜 예
+// [금지] 나쁜 예
 function processData(data: any) { }
 
-// ✅ 좋은 예
+// [권장] 좋은 예
 function processData<T>(data: T) { }
 // 또는
 function processData(data: unknown) { }
@@ -173,14 +173,14 @@ export function formatDate(date: Date): string {
 
 #### 단일 책임 원칙
 ```typescript
-// ❌ 나쁜 예 - 여러 책임
+// [금지] 나쁜 예 - 여러 책임
 function saveUserAndSendEmail(user: User) {
   database.save(user);
   emailService.send(user.email, 'Welcome!');
   analytics.track('user_created');
 }
 
-// ✅ 좋은 예 - 각각 분리
+// [권장] 좋은 예 - 각각 분리
 function saveUser(user: User) {
   return database.save(user);
 }
@@ -204,7 +204,7 @@ async function registerUser(user: User) {
 
 #### 매개변수 개수 제한
 ```typescript
-// ❌ 나쁜 예 - 매개변수 너무 많음
+// [금지] 나쁜 예 - 매개변수 너무 많음
 function createUser(
   name: string,
   email: string,
@@ -213,7 +213,7 @@ function createUser(
   phone: string
 ) { }
 
-// ✅ 좋은 예 - 객체로 그룹화
+// [권장] 좋은 예 - 객체로 그룹화
 interface CreateUserParams {
   name: string;
   email: string;
@@ -229,7 +229,7 @@ function createUser(params: CreateUserParams) { }
 
 #### async/await 사용
 ```typescript
-// ❌ 나쁜 예 - Promise 체이닝
+// [금지] 나쁜 예 - Promise 체이닝
 function getUser(id: string) {
   return fetch(`/api/users/${id}`)
     .then(res => res.json())
@@ -237,7 +237,7 @@ function getUser(id: string) {
     .catch(err => console.error(err));
 }
 
-// ✅ 좋은 예 - async/await
+// [권장] 좋은 예 - async/await
 async function getUser(id: string): Promise<User> {
   try {
     const response = await fetch(`/api/users/${id}`);
@@ -252,7 +252,7 @@ async function getUser(id: string): Promise<User> {
 
 #### 에러 처리
 ```typescript
-// ✅ 명시적 에러 처리
+// [권장] 명시적 에러 처리
 async function fetchUserData(id: string): Promise<User> {
   try {
     const response = await fetch(`/api/users/${id}`);
@@ -277,7 +277,7 @@ async function fetchUserData(id: string): Promise<User> {
 
 #### 구조 분해 할당
 ```typescript
-// ✅ 좋은 예
+// [권장] 좋은 예
 const { name, email } = user;
 const [first, second, ...rest] = items;
 
@@ -298,7 +298,7 @@ const allItems = [...items1, ...items2];
 
 #### 옵셔널 체이닝
 ```typescript
-// ✅ 좋은 예
+// [권장] 좋은 예
 const city = user?.address?.city;
 const firstItem = items?.[0];
 const result = fetchData?.();
@@ -367,7 +367,7 @@ public class UserService {
 
 #### 생성자 주입 (권장)
 ```java
-// ✅ 좋은 예 - 생성자 주입
+// [권장] 좋은 예 - 생성자 주입
 @Service
 @RequiredArgsConstructor  // Lombok
 public class UserService {
@@ -388,7 +388,7 @@ public class UserService {
 
 #### 필드 주입 지양
 ```java
-// ❌ 나쁜 예 - 필드 주입
+// [금지] 나쁜 예 - 필드 주입
 @Service
 public class UserService {
     @Autowired
@@ -400,11 +400,11 @@ public class UserService {
 
 #### 명확한 이름
 ```java
-// ❌ 나쁜 예
+// [금지] 나쁜 예
 public User get(Long id) { }
 public void do() { }
 
-// ✅ 좋은 예
+// [권장] 좋은 예
 public User findById(Long id) { }
 public Optional<User> findByEmail(String email) { }
 public void deleteUser(Long id) { }
@@ -582,18 +582,18 @@ const age = 30;
 
 #### 1. Why, not What
 ```typescript
-// ❌ 나쁜 예 - What (코드만 봐도 알 수 있음)
+// [금지] 나쁜 예 - What (코드만 봐도 알 수 있음)
 // 사용자 이름을 대문자로 변환
 const upperName = user.name.toUpperCase();
 
-// ✅ 좋은 예 - Why (이유 설명)
+// [권장] 좋은 예 - Why (이유 설명)
 // DB는 이름을 대문자로 저장하므로 비교 전 변환 필요
 const upperName = user.name.toUpperCase();
 ```
 
 #### 2. 복잡한 로직 설명
 ```typescript
-// ✅ 좋은 예
+// [권장] 좋은 예
 // 사용자가 마지막 로그인 후 30일 이상 지났고,
 // 프리미엄 구독이 없으면 계정 비활성화
 if (daysSinceLastLogin > 30 && !user.isPremium) {

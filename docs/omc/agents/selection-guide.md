@@ -455,7 +455,7 @@ Task(subagent_type: "oh-my-claudecode:security-reviewer",
 
 ## 일반적인 실수
 
-### ❌ 실수 1: 모든 작업에 에이전트 사용
+### [금지] 실수 1: 모든 작업에 에이전트 사용
 ```bash
 # 나쁜 예
 Task(subagent_type: "oh-my-claudecode:executor",
@@ -467,7 +467,7 @@ Read(file_path: "src/models/user.ts")
 
 ---
 
-### ❌ 실수 2: 잘못된 에이전트 선택
+### [금지] 실수 2: 잘못된 에이전트 선택
 ```bash
 # 나쁜 예 - 탐색에 executor 사용
 Task(subagent_type: "oh-my-claudecode:executor",
@@ -480,7 +480,7 @@ Task(subagent_type: "oh-my-claudecode:explore",
 
 ---
 
-### ❌ 실수 3: 문서 조회 생략
+### [금지] 실수 3: 문서 조회 생략
 ```bash
 # 나쁜 예 - 직접 구현 시도
 Task(subagent_type: "oh-my-claudecode:executor",
@@ -494,7 +494,7 @@ Task(subagent_type: "oh-my-claudecode:document-specialist",
 
 ---
 
-### ❌ 실수 4: 검증 생략
+### [금지] 실수 4: 검증 생략
 ```bash
 # 나쁜 예 - 구현만 하고 끝
 Task(subagent_type: "oh-my-claudecode:executor", ...)
@@ -507,7 +507,7 @@ Task(subagent_type: "oh-my-claudecode:verifier",
 
 ---
 
-### ❌ 실수 5: 잘못된 모델 선택
+### [금지] 실수 5: 잘못된 모델 선택
 ```bash
 # 나쁜 예 - 간단한 작업에 opus
 Task(subagent_type: "oh-my-claudecode:explore",

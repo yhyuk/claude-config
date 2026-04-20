@@ -14,6 +14,9 @@ import re
 class ObsidianDocManager:
     def __init__(self):
         self.vault_path = Path(os.environ.get("OBSIDIAN_VAULT_PATH", Path.home() / "Documents" / "Obsidian Vault"))
+        if not self.vault_path.exists():
+            print(f"경고: Obsidian 볼트 경로가 존재하지 않습니다 ({self.vault_path})")
+            print("OBSIDIAN_VAULT_PATH 환경변수를 설정하거나 볼트 경로를 확인하세요.")
         self.learning_path = self.vault_path / "02_Learning"
         self.daily_path = self.vault_path / "00_HOME" / "daily"
         self.work_path = self.vault_path / "01_Work"
@@ -47,10 +50,17 @@ class ObsidianDocManager:
         markdown = self._generate_markdown(title, content, category, tags, code_snippets, timestamp)
 
         # 파일 저장
-        filepath.write_text(markdown, encoding='utf-8')
+        try:
+            filepath.write_text(markdown, encoding='utf-8')
+        except OSError as e:
+            print(f"파일 저장 실패 ({filepath}): {e}")
+            raise
 
         # MOC 업데이트
-        self._update_moc(category, filename, title)
+        try:
+            self._update_moc(category, filename, title)
+        except OSError as e:
+            print(f"MOC 업데이트 실패: {e}")
 
         return str(filepath)
 
@@ -82,20 +92,21 @@ class ObsidianDocManager:
 [[_MOC_{project_name}]]
 """
 
-        filepath.write_text(markdown, encoding='utf-8')
+        try:
+            filepath.write_text(markdown, encoding='utf-8')
+        except OSError as e:
+            print(f"프로젝트 노트 저장 실패 ({filepath}): {e}")
+            raise
         return str(filepath)
 
     def update_weekly_task(self, task, status="todo", project="General"):
         """주간 작업 목록 업데이트"""
         today = datetime.now()
-        year = today.strftime('%Y')
-        month = today.strftime('%m')
+        iso = today.isocalendar()
+        year = iso[0]
+        week_num = iso[1]
 
-        # 주차 계산
-        first_day = today.replace(day=1)
-        week_num = ((today - first_day).days // 7) + 1
-
-        week_file = self.daily_path / year / month / f"{week_num}주차.md"
+        week_file = self.daily_path / str(year) / f"W{week_num:02d}" / f"{year}-W{week_num:02d}주차.md"
 
         if not week_file.exists():
             self._create_week_template(week_file)

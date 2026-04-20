@@ -18,22 +18,22 @@
 **Autopilot**은 OMC의 완전 자동화 워크플로우로, 사용자의 요청을 받아 분석, 계획, 구현, 테스트, 검증까지 모든 과정을 자동으로 수행합니다.
 
 ### 핵심 특징
-- ✅ **완전 자동화**: 사람 개입 없이 전체 프로세스 실행
-- ✅ **다단계 파이프라인**: explore → analyst → planner → executor → test → verify → qa
-- ✅ **자동 QA**: UltraQA 모드로 품질 보증
-- ✅ **증거 기반 완료**: 모든 검증 통과해야 완료
+- [권장] **완전 자동화**: 사람 개입 없이 전체 프로세스 실행
+- [권장] **다단계 파이프라인**: explore → analyst → planner → executor → test → verify → qa
+- [권장] **자동 QA**: UltraQA 모드로 품질 보증
+- [권장] **증거 기반 완료**: 모든 검증 통과해야 완료
 
 ### 주의사항
-- ⚠️ 자동으로 코드 변경 발생
-- ⚠️ 실행 전 현재 상태 커밋 권장
-- ⚠️ 복잡한 작업은 시간 소요 가능
-- ⚠️ 중간에 멈출 수 있음 (`/oh-my-claudecode:cancel`)
+- [주의] 자동으로 코드 변경 발생
+- [주의] 실행 전 현재 상태 커밋 권장
+- [주의] 복잡한 작업은 시간 소요 가능
+- [주의] 중간에 멈출 수 있음 (`/oh-my-claudecode:cancel`)
 
 ---
 
 ## 언제 사용하는가
 
-### ✅ 적합한 경우
+### [권장] 적합한 경우
 
 #### 1. 새로운 기능 개발
 ```bash
@@ -61,7 +61,7 @@
 
 ---
 
-### ❌ 부적합한 경우
+### [금지] 부적합한 경우
 
 #### 1. 탐색적 작업
 ```bash
@@ -297,11 +297,11 @@ mcp__plugin_oh-my-claudecode_t__state_clear(mode: "autopilot")
 ### 1. 명확한 목표 설정
 
 ```bash
-# ❌ 나쁜 예 - 모호함
+# [금지] 나쁜 예 - 모호함
 /oh-my-claudecode:autopilot
 "사용자 기능 만들어줘"
 
-# ✅ 좋은 예 - 명확함
+# [권장] 좋은 예 - 명확함
 /oh-my-claudecode:autopilot
 "Implement user registration and login with:
 - Email/password authentication
@@ -351,11 +351,11 @@ Autopilot이 각 단계를 완료할 때마다 확인:
 ### 4. 복잡한 작업은 분할
 
 ```bash
-# ❌ 나쁜 예 - 너무 큰 작업
+# [금지] 나쁜 예 - 너무 큰 작업
 /oh-my-claudecode:autopilot
 "Build complete e-commerce platform with payment, inventory, shipping"
 
-# ✅ 좋은 예 - 분할
+# [권장] 좋은 예 - 분할
 /oh-my-claudecode:autopilot
 "Implement product catalog API"
 
